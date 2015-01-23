@@ -1,11 +1,12 @@
 package com.cat.facts.facts;
 
+import gvjava.org.json.JSONException;
+import gvjava.org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import org.json.JSONObject;
 
 /**
  *  Retrieve cat facts from the api at http://catfacts-api.appspot.com/
@@ -27,6 +28,8 @@ public class CatFactProviderWebAPIImpl implements CatFactProvider{
         try {
             catFact = parseFactFromRawJSONString(getRawJSONFromAPI());
         } catch (IOException ex) {
+            throw new CouldNotRetrieveCatFactException(ex.getMessage());
+        } catch (JSONException ex) {
             throw new CouldNotRetrieveCatFactException(ex.getMessage());
         }
         
@@ -56,7 +59,7 @@ public class CatFactProviderWebAPIImpl implements CatFactProvider{
         return rawJSON;
     }
     
-    private String parseFactFromRawJSONString(String rawJSONString)
+    private String parseFactFromRawJSONString(String rawJSONString) throws JSONException
     {
         JSONObject jsonObj = new JSONObject(rawJSONString);
         return jsonObj.getJSONArray("facts").getString(0);
