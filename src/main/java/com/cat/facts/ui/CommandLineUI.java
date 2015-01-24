@@ -34,7 +34,6 @@ public class CommandLineUI {
         String username = getUserName(cmd);
         String password = getPassword();
         String message = getMessage(cmd);
-        String recipient = getRecipient(cmd);
         
         MessageSender sender;
         try {
@@ -43,6 +42,8 @@ public class CommandLineUI {
             System.out.println("Coult not connect to Google Voice account: " + username);
             return;
         }
+        
+        String recipient = getRecipient(cmd);
         
         try {
             sender.send(recipient, message);
