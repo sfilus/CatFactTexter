@@ -2,7 +2,7 @@
 Java command line application for texting cat facts using google voice.
 
 This application consumes cat facts in JSON format from the web api at http://catfacts-api.appspot.com/
-and then uses the google voice to text them out.
+and then uses google voice to text them out.
 
 
 java -jar CatFactTexter-1.0-jar-with-dependencies.jar -help
